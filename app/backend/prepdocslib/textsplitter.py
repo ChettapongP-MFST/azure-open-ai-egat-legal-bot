@@ -79,7 +79,7 @@ CJK_SENTENCE_ENDINGS = ["。", "！", "？", "‼", "⁇", "⁈", "⁉"]
 bpe = tiktoken.encoding_for_model(ENCODING_MODEL)
 
 DEFAULT_OVERLAP_PERCENT = 10  # See semantic search article for 10% overlap performance
-DEFAULT_SECTION_LENGTH = 1000  # Roughly 400-500 tokens for English
+DEFAULT_SECTION_LENGTH = 2000  # Roughly 400-500 tokens for English
 
 
 class SentenceTextSplitter(TextSplitter):
@@ -87,11 +87,13 @@ class SentenceTextSplitter(TextSplitter):
     Class that splits pages into smaller chunks. This is required because embedding models may not be able to analyze an entire page at once
     """
 
-    def __init__(self, max_tokens_per_section: int = 500):
+    # def __init__(self, max_tokens_per_section: int = 500):
+    def __init__(self, max_tokens_per_section: int = 1000):
         self.sentence_endings = STANDARD_SENTENCE_ENDINGS + CJK_SENTENCE_ENDINGS
         self.word_breaks = STANDARD_WORD_BREAKS + CJK_WORD_BREAKS
         self.max_section_length = DEFAULT_SECTION_LENGTH
-        self.sentence_search_limit = 100
+        # self.sentence_search_limit = 100
+        self.sentence_search_limit = 500
         self.max_tokens_per_section = max_tokens_per_section
         self.section_overlap = int(self.max_section_length * DEFAULT_OVERLAP_PERCENT / 100)
 
@@ -212,8 +214,8 @@ class SimpleTextSplitter(TextSplitter):
     Class that splits pages into smaller chunks based on a max object length. It is not aware of the content of the page.
     This is required because embedding models may not be able to analyze an entire page at once
     """
-
-    def __init__(self, max_object_length: int = 1000):
+    # def __init__(self, max_object_length: int = 1000):
+    def __init__(self, max_object_length: int = 2000):
         self.max_object_length = max_object_length
 
     def split_pages(self, pages: List[Page]) -> Generator[SplitPage, None, None]:
