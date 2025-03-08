@@ -199,10 +199,7 @@ export const Settings = ({
                 aria-labelledby={includeCategoryId}
                 options={[
                     { key: "", text: t("labels.includeCategoryOptions.all") }
-                    { key: "example", text: "legal" },
-                    { key: "policy", text: "policy" }
-        // Add more categories as needed
-
+                    // Add more categories as needed
                 ]}
                 onRenderLabel={props => renderLabel(props, includeCategoryId, includeCategoryFieldId, t("helpTexts.includeCategory"))}
             />
